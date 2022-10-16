@@ -1,0 +1,37 @@
+## Vigenere Encryptor by Matter Turbulent
+## https://en.wikipedia.org/wiki/Vigen%C3%A8re_cipher
+
+#Start by listing the alphabet in a string to latter map shifts on
+alphabet = 'abcdefghijklmnopqrstuvwxyz'
+
+#Create function which passes through two arguments, our message and our keyword
+def encoder(message, keyword):
+    print(message + '\n')
+    keyword_char_index = 0
+    keyworded_message = ''
+    #Make a new string of message in terms of keyword
+    for character in message:
+        if alphabet.find(character) == -1:
+            keyworded_message += character
+        else:
+            keyworded_message += (keyword[keyword_char_index%(len(keyword))])
+            keyword_char_index = keyword_char_index + 1
+    print(keyworded_message + '\n')
+    # Loop through the message
+    counter = 0
+    decrypted_message = ''
+    for character in message:
+        #When encountering symbol, add it to new encrypted string
+        if alphabet.find(character) == -1:
+            decrypted_message += character
+        else:
+            #For each message letter, add the alphabet index of the corresponding key letter to the alphabet index of the message letter
+            decrypted_index = (alphabet.find(character) + alphabet.find(keyworded_message[counter]))%26
+            #Add the alphabet letter with the encrypted index to the new message string
+            decrypted_message += alphabet[decrypted_index]
+        #This counter keeps pace in the keyworded_message index as the loop moves through the message string
+        counter = counter + 1
+    print(decrypted_message + '\n')
+
+## Message and keyword arguments 
+encoder('enter your message here. make sure it is lower case', 'keyword')
